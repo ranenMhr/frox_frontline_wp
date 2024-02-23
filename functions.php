@@ -22,7 +22,6 @@ if (!function_exists('coachfocus_child_theme_enqueue_scripts')) {
 		$main_style = 'coachfocus-main';
 
 		wp_enqueue_style('coachfocus-child-style', get_stylesheet_directory_uri() . '/style.css', array($main_style));
-		wp_enqueue_style('coachfocus-grid', COACHFOCUS_ASSETS_CSS_ROOT . '/grid.min.css');
 	}
 
 	add_action('wp_enqueue_scripts', 'coachfocus_child_theme_enqueue_scripts');
