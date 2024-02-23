@@ -1,0 +1,115 @@
+/*
+Theme Name: CoachFocus Child
+Theme URI: https://coachfocus.qodeinteractive.com
+Description: A child theme of CoachFocus
+Author: Select Themes
+Author URI: https://qodeinteractive.com
+Version: 1.1
+Text Domain: coachfocus
+Template: coachfocus
+*/
+:root {
+    --primary: #377ac6;
+    --accent: #f78222;
+}
+.qodef-offset-image-holder {
+    z-index: -1;
+}
+.nf-before-form-content,
+.btn-none .qodef-m-button {
+    display: none;
+}
+ol,
+ul {
+    list-style-position: outside;
+    padding-left: 1rem;
+}
+li {
+    margin-bottom: 0.25rem;
+}
+.nf-form-content .submit-wrap .ninja-forms-field {
+    padding: 12px 20px;
+}
+div.nf-form-content .label-above .nf-field-label {
+    margin-bottom: 0;
+}
+.nf-form-content .label-above .nf-field-label label {
+    font-size: 16px;
+    font-weight: normal;
+}
+
+.service-side-img,
+.service-side-img *,
+div.service-side-img img {
+    height: 100%;
+    object-fit: cover;
+}
+div.nf-form-cont .one-half {
+    margin-bottom: 25px;
+}
+.breadcrumb-container .rank-math-breadcrumb a {
+    text-decoration: none;
+    background-image: linear-gradient(to top, transparent 0, transparent calc(5px), currentColor calc(5px), currentColor 100%);
+    background-position: 0 calc(100% + 2px);
+    background-repeat: no-repeat;
+    background-size: 0 calc(5px + 1px);
+    transition: background-size 0.25s ease-out;
+}
+.breadcrumb-container .rank-math-breadcrumb a:hover {
+    background-size: 100% calc(5px + 1px);
+}
+.breadcrumb-container a,
+.breadcrumb-container * {
+    margin: 0 !important;
+}
+
+.breadcrumb-container .last {
+    opacity: 0.5;
+}
+
+.single-post .elementor-section:not(.section-breadcrumb) a,
+.single-post .elementor-section:not(.section-breadcrumb) a > span {
+    color: var(--primary);
+    text-decoration: underline;
+    text-decoration-color: var(--primary);
+    text-underline-offset: 2px;
+}
+.single-post .qodef-m-table-content:not(.section-breadcrumb) a {
+    text-decoration: none;
+}
+.single-post .elementor-section li {
+    margin-bottom: 0.5rem;
+}
+.single-post .qodef-blog.qodef--single .qodef-blog-item .qodef-e-title {
+    margin-bottom: 0;
+}
+.qodef-qi-accordion .qodef-e-content {
+    box-sizing: border-box;
+}
+footer .qodef-m-image {
+    max-width: 150px;
+    height: auto;
+}
+.entry-date {
+    pointer-events: none;
+}
+.wp-block-rank-math-toc-block {
+    background-color: #f1f1f1;
+    border-radius: 1rem;
+    padding: 0.125rem 1.875rem;
+    margin: 2rem 0;
+    display: inline-block;
+}
+@media screen and (min-width: 1440px) {
+    .wp-block-rank-math-toc-block {
+        margin: 4rem 0;
+    }
+    footer .qodef-grid.qodef-layout--columns.qodef-col-num--4 > .qodef-grid-inner > .qodef-grid-item {
+        width: 20%;
+    }
+
+    footer .qodef-grid.qodef-layout--columns.qodef-col-num--4 > .qodef-grid-inner > .qodef-grid-item:first-child {
+        width: 40%;
+        padding-right: 3rem;
+    }
+}
