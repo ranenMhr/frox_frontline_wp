@@ -101,6 +101,14 @@ footer .qodef-m-image {
     margin: 2rem 0;
     display: inline-block;
 }
+.single-event-item .qodef-event-item .qodef-e-content .qodef-e-info-item {
+    align-items: start;
+    margin-bottom: 0.25rem;
+}
+
+.qodef-e-meta-holder .qodef-e-info-content {
+    font-weight: 500;
+}
 @media screen and (min-width: 1440px) {
     .wp-block-rank-math-toc-block {
         margin: 4rem 0;
