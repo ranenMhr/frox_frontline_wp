@@ -1,6 +1,6 @@
 <main id="qodef-page-content" class="qodef-grid qodef-layout--template qodef-gutter--huge" role="main">
 	<div class="qodef-grid-inner clear">
-		<div class="qodef-grid-item <?php echo esc_attr(coachfocus_get_page_content_sidebar_classes()); ?>">
+		<div class="qodef-grid-item qodef-page-content-section qodef-col--9">
 			<?php
 			// Hook to include additional content before blog loop
 			do_action('coachfocus_action_before_blog_loop');
