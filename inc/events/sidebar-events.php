@@ -1,7 +1,9 @@
 <aside id="qodef-page-sidebar" role="complementary">
-    <div class="d-none d-lg-block mb-lg-5">
-        <?php child_template_part('events', 'event-details'); ?>
-    </div>
+    <?php if (is_single()) : ?>
+        <div class="d-none d-lg-block mb-lg-5">
+            <?php child_template_part('events', 'event-details'); ?>
+        </div>
+    <?php endif ?>
     <div class="widget widget_block widget_search">
         <?php
         // Unique ID for search form fields
