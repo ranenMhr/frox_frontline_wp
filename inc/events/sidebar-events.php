@@ -1,4 +1,7 @@
 <aside id="qodef-page-sidebar" role="complementary">
+    <div class="d-none d-lg-block mb-lg-5">
+        <?php child_template_part('events', 'event-details'); ?>
+    </div>
     <div class="widget widget_block widget_search">
         <?php
         // Unique ID for search form fields
@@ -15,15 +18,17 @@
     <div class="qodef-separator" style="margin-top: 40px;"></div>
     <div class="widget widget_block widget_types">
         <div class="widget widget_coachfocus_core_title_widget">
-            <h4 class="qodef-widget-title">Event Types</h4>
+            <h4 class="qodef-widget-title">Event Type</h4>
         </div>
-        <?php $term_values = get_the_terms(get_the_ID(), 'event-types');
-
-        //print_r(get_the_term(get_the_ID(), 'event-types'));
+        <?php
+        $terms = get_terms(array(
+            'taxonomy' => 'event-types',
+            'parent'   => 0,
+            'orderby'    => 'title',
+        ));
         ?>
-
-        <ul class="wp-block-categories-list wp-block-categories">
-            <?php foreach ($term_values as $term_value) { ?>
+        <ul class="wp-block-categories-list wp-block-categories sidebar-list-wrapper">
+            <?php foreach ($terms as $term_value) { ?>
                 <li class="cat-item"><a href="<?php echo esc_url(get_term_link($term_value->term_id)); ?>"><?php echo esc_html($term_value->name); ?></a>
                 </li>
             <?php } ?>
@@ -34,7 +39,7 @@
         <div class="widget widget_coachfocus_core_title_widget">
             <h4 class="qodef-widget-title">More Upcoming Events</h4>
         </div>
-        <ul class="wp-block-event-list wp-block-event">
+        <ul class="wp-block-event-list wp-block-event sidebar-list-wrapper">
             <?php
             $today = date('Y-m-d');
             $post_terms = wp_get_post_terms(get_the_ID(), 'event-types', ['fields' => 'slugs']);
