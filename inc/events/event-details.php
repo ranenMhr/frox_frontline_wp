@@ -13,5 +13,6 @@
         <?php coachfocus_core_template_part('post-types/events', 'templates/parts/post-info/website'); ?>
     </ul>
     <?php coachfocus_core_template_part('post-types/events', 'templates/parts/post-info/price'); ?>
-    <?php coachfocus_core_template_part('post-types/events', 'templates/parts/post-info/tickets-link'); ?>
+    <?php //coachfocus_core_template_part('post-types/events', 'templates/parts/post-info/tickets-link'); 
+    ?>
 </div>
