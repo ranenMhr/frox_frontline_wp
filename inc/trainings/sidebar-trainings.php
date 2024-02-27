@@ -1,8 +1,3 @@
-<?php if (is_single()) : ?>
-    <div class="d-none d-lg-block mb-lg-5">
-        <?php child_template_part('events', 'event-details'); ?>
-    </div>
-<?php endif ?>
 <div class="widget widget_block widget_search">
     <?php
     // Unique ID for search form fields
@@ -19,11 +14,11 @@
 <div class="qodef-separator" style="margin-top: 40px;"></div>
 <div class="widget widget_block widget_types">
     <div class="widget widget_coachfocus_core_title_widget">
-        <h4 class="qodef-widget-title">Event Type</h4>
+        <h4 class="qodef-widget-title">Training Type</h4>
     </div>
     <?php
     $terms = get_terms(array(
-        'taxonomy' => 'event-types',
+        'taxonomy' => 'trainings-category',
         'parent'   => 0,
         'orderby'    => 'title',
     ));
@@ -38,52 +33,58 @@
 <div class="qodef-separator" style="margin-top: 40px;"></div>
 <div class="widget widget_coachfocus_core_simple_event_list">
     <div class="widget widget_coachfocus_core_title_widget">
-        <h4 class="qodef-widget-title">More Upcoming Events</h4>
+        <h4 class="qodef-widget-title">More Trainings</h4>
     </div>
     <ul class="wp-block-event-list wp-block-event sidebar-list-wrapper">
         <?php
         $today = date('Y-m-d');
         $post_terms = wp_get_post_terms(get_the_ID(), 'event-types', ['fields' => 'slugs']);
-        $args = array(
-            'post_type' => 'event-item',
+
+        $args_with_term = array(
+            'post_type'      => 'trainings',
             'posts_per_page' => 6,
-            'order' => 'DESC',
-            'orderby' => 'meta_value',
-            'meta_key' => 'qodef_event_single_start_date',
-            'meta_query' => array(
-                'relation' => 'AND',
+            'orderby'        => 'taxonomy',
+            'order'          => 'ASC',
+            'tax_query'      => array(
                 array(
-                    'key' => 'qodef_event_single_start_date',
-                    'value' => $today,
-                    'compare' => '>',
-                    'type' => 'DATE',
+                    'taxonomy' => 'trainings-category',
+                    'field'    => 'slug',
+                    'terms'    => $post_terms,
                 ),
             ),
-            /* 'tax_query' => array(
-                        'relation' => 'OR',
-                        array(
-                            'taxonomy' => 'event-types', // Replace 'your_taxonomy' with the name of your taxonomy
-                            'field' => 'slug',
-                            'terms' => $post_terms, // Replace 'test1' with the slug of the first term
-                        ),
-                    ) */
+            'post__not_in'   => array(get_the_ID()),
         );
 
-        $query = new WP_Query($args);
+        $args_without_term = array(
+            'post_type'      => 'trainings',
+            'posts_per_page' => 6,
+            'orderby'        => 'title',
+            'order'          => 'DESC',
+            'tax_query'      => array(
+                'relation' => 'OR',
+                array(
+                    'taxonomy' => 'trainings-category',
+                    'operator' => 'NOT EXISTS',
+                ),
+                array(
+                    'taxonomy' => 'trainings-category',
+                    'operator' => 'EXISTS',
+                    'terms'    => $post_terms,
+                    'field'    => 'slug',
+                    'compare'  => 'NOT IN',
+                ),
+            ),
+            'post__not_in'   => array(get_the_ID()),
+        );
 
-        if ($query->have_posts()) {
-            while ($query->have_posts()) {
-                $query->the_post();
-        ?>
-                <li class="cat-item"><a href="<?php the_permalink() ?>"><?php the_title(); ?></a>
-            <?php
-            }
-        } else {
+        $query_with_term = new WP_Query($args_with_term);
+        $query_without_term = new WP_Query($args_without_term);
+        $query_results = array_merge($query_with_term->posts, $query_without_term->posts); ?>
 
-            echo 'No events found';
-        }
+        <?php foreach ($query_results as $post) :  ?>
+            <li class="cat-item"><a href="<?php echo get_the_permalink($post->ID) ?>"><?php echo get_the_title($post->ID); ?></a>
+            <?php endforeach; ?>
 
-        wp_reset_postdata();
-            ?>
+            <?php wp_reset_postdata(); ?>
     </ul>
 </div>
