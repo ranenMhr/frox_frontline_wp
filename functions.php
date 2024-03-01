@@ -218,9 +218,9 @@ function post_type_frontline()
 		'menu_position' 	=> 20,
 		'menu_icon'     	=> 'dashicons-welcome-widgets-menus',
 		'supports'      	=> array('title', 'editor', 'thumbnail', 'excerpt'),
-		'has_archive'   	=> true,
+		'has_archive'   	=> false,
 		'show_in_rest' 		=> true,
-		'rewrite'       	=> array('slug' => 'recent-activities', 'with_front' => false),
+		'rewrite'       	=> array('slug' => 'recent-activity', 'with_front' => false),
 		'publicly_queryable'  => true
 	);
 	register_post_type('news', $news_args);
@@ -236,7 +236,7 @@ function post_type_frontline()
 			'show_ui' 			=> true,
 			'show_admin_column' => true,
 			'show_in_rest' 		=> true,
-			'rewrite'       	=> array('slug' => 'recent-activities', 'with_front' => false),
+			'rewrite'       	=> array('slug' => 'recent-activity', 'with_front' => false),
 			'supports' 			=> array(
 				'title', 'thumbnail', 'editor', 'custom-fields', 'excerpt', 'tags'
 			)

@@ -22,7 +22,6 @@
 				<?php
 				// Include post title
 				child_template_part('news', 'templates/parts/post-info/title');
-				if (function_exists('rank_math_the_breadcrumbs')) rank_math_the_breadcrumbs();
 
 				// Include post content
 				the_content();
