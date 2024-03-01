@@ -2,7 +2,7 @@
 	<div class="qodef-e-inner">
 		<?php
 		// Include post media
-		child_template_part('trainings', 'templates/parts/post-info/media');
+		child_template_part('consulting', 'templates/parts/post-info/media');
 		?>
 		<div class="qodef-e-content">
 			<div class="qodef-e-top-holder">
@@ -10,18 +10,18 @@
 					<?php
 					// Include post date info
 					if (!has_post_thumbnail()) {
-						child_template_part('trainings', 'templates/parts/post-info/date');
+						child_template_part('consulting', 'templates/parts/post-info/date');
 					}
 
 					// Include post category info
-					child_template_part('trainings', 'templates/parts/post-info/categories');
+					child_template_part('consulting', 'templates/parts/post-info/categories');
 					?>
 				</div>
 			</div>
-			<div class="qodef-e-text trainings-wrapper">
+			<div class="qodef-e-text consulting-wrapper">
 				<?php
 				// Include post title
-				child_template_part('trainings', 'templates/parts/post-info/title');
+				child_template_part('consulting', 'templates/parts/post-info/title');
 				if (function_exists('rank_math_the_breadcrumbs')) rank_math_the_breadcrumbs();
 
 				// Include post content
@@ -35,7 +35,7 @@
 				<div class="qodef-e-left qodef-e-tags">
 					<?php
 					// Include post tags info
-					child_template_part('trainings', 'templates/parts/post-info/tags');
+					child_template_part('consulting', 'templates/parts/post-info/tags');
 					?>
 				</div>
 				<div class="qodef-e-right qodef-e-info">

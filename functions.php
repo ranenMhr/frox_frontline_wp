@@ -251,7 +251,7 @@ function custom_acf_load_post_types($field)
 {
 
 	$choices = get_post_types(array('show_in_nav_menus' => true), 'objects');
-	$os = array("Event Item", "Training", "Consulting");
+	$os = array("Event Item", "Training", "Consulting", "News");
 
 	foreach ($choices as $post_type) :
 		if (in_array($post_type->labels->singular_name, $os))
