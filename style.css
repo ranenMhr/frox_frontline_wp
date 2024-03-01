@@ -12,12 +12,9 @@ Template: coachfocus
     --primary: #377ac6;
     --accent: #f78222;
 }
-.qodef-offset-image-holder {
-    z-index: -1;
-}
-.nf-before-form-content,
-.btn-none .qodef-m-button {
-    display: none;
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 130px;
 }
 ol,
 ul {
@@ -26,6 +23,16 @@ ul {
 }
 li {
     margin-bottom: 0.25rem;
+}
+.m-0 {
+    margin: 0;
+}
+.qodef-offset-image-holder {
+    z-index: -1;
+}
+.nf-before-form-content,
+.btn-none .qodef-m-button {
+    display: none;
 }
 .nf-form-content .submit-wrap .ninja-forms-field {
     padding: 12px 20px;
@@ -100,6 +107,9 @@ footer .qodef-m-image {
     padding: 0.125rem 1.875rem;
     margin: 2rem 0;
     display: inline-block;
+}
+.wp-block-kadence-tableofcontents {
+    padding: 0;
 }
 .single-event-item .qodef-event-item .qodef-e-content .qodef-e-info-item {
     align-items: start;
@@ -218,8 +228,42 @@ footer .qodef-m-image {
 .qodef-info--price .qodef-e-info-content {
     margin-bottom: 0;
 }
-.qodef-blog .qodef-blog-item .qodef-e-media > * {
+.single-post .qodef-blog-item .qodef-e-media > * {
     box-shadow: 0px 4px 10px 4px rgb(241 242 248);
+}
+.qodef-page-title.custom-page-title {
+    height: auto;
+    padding: 2rem 0;
+}
+.custom-pagination {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.custom-pagination span {
+    opacity: 0.25;
+}
+.custom-pagination a {
+    padding: 0 0.5rem;
+}
+.custom-pagination svg {
+    width: 1.75rem;
+}
+.custom-pagination .next.page-numbers,
+.custom-pagination .prev.page-numbers {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.custom-pagination .next.page-numbers {
+    right: 0;
+}
+.custom-pagination .prev.page-numbers {
+    left: 0;
 }
 @media screen and (min-width: 1440px) {
     .wp-block-rank-math-toc-block {
@@ -243,5 +287,8 @@ footer .qodef-m-image {
     }
     .mb-lg-5 {
         margin-bottom: 3rem !important;
+    }
+    .qodef-page-title.custom-page-title {
+        padding: 6rem 0 2rem;
     }
 }

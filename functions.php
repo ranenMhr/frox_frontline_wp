@@ -27,6 +27,12 @@ if (!function_exists('coachfocus_child_theme_enqueue_scripts')) {
 	add_action('wp_enqueue_scripts', 'coachfocus_child_theme_enqueue_scripts');
 }
 
+function custom_enqueue_admin_scripts()
+{
+	wp_enqueue_script('custom-admin-scripts', get_stylesheet_directory_uri() . '/js/admin-scripts.js', array('jquery'), null, true);
+}
+add_action('admin_enqueue_scripts', 'custom_enqueue_admin_scripts');
+
 function add_file_types_to_uploads($file_types)
 {
 	$new_filetypes = array();
@@ -99,7 +105,7 @@ if (!function_exists('child_get_template_part')) {
 
 function post_type_frontline()
 {
-	$labels = array(
+	$training_labels = array(
 		'name'               => _x('Trainings', 'post type general name'),
 		'singular_name'      => _x('Training', 'post type singular name'),
 		'add_new'            => _x('Add New', 'Training'),
@@ -113,16 +119,17 @@ function post_type_frontline()
 		'not_found_in_trash' => __('No Trainings found in the Trash'),
 		'menu_name'          => 'Trainings'
 	);
-	$args = array(
-		'labels'        => $labels,
+	$training_args = array(
+		'labels'        => $training_labels,
 		'description'   => 'Trainings Listing',
 		'public'        => true,
 		'menu_position' => 20,
 		'menu_icon'     => 'dashicons-groups',
 		'supports'      => array('title', 'editor', 'thumbnail', 'excerpt'),
-		'show_in_rest' => true
+		'show_in_rest' => true,
+		'rewrite'       => array('slug' => 'training', 'with_front' => false),
 	);
-	register_post_type('trainings', $args);
+	register_post_type('trainings', $training_args);
 
 	register_taxonomy(
 		'trainings-category',
@@ -138,12 +145,13 @@ function post_type_frontline()
 				'title', 'thumbnail', 'editor', 'custom-fields', 'excerpt', 'tags'
 			),
 			'show_in_rest' => true,
-			'has_archive'   => true,
+			'has_archive'   => false,
+			'rewrite'       => array('slug' => 'training', 'with_front' => false),
 			'publicly_queryable'  => true
 		)
 	);
 
-	$labels = array(
+	$consulting_labels = array(
 		'name'               => _x('Consultings', 'post type general name'),
 		'singular_name'      => _x('Consulting', 'post type singular name'),
 		'add_new'            => _x('Add New', 'Consulting'),
@@ -157,17 +165,19 @@ function post_type_frontline()
 		'not_found_in_trash' => __('No Consultings found in the Trash'),
 		'menu_name'          => 'Consultings'
 	);
-	$args = array(
-		'labels'        => $labels,
+	$consulting_args = array(
+		'labels'        => $consulting_labels,
 		'description'   => 'Consultings Listing',
 		'public'        => true,
 		'menu_position' => 20,
 		'menu_icon'     => 'dashicons-buddicons-buddypress-logo',
 		'supports'      => array('title', 'editor', 'thumbnail', 'excerpt'),
 		'has_archive'   => true,
-		'publicly_queryable'  => true
+		'publicly_queryable'  => true,
+		'rewrite'       	=> array('slug' => 'consulting', 'with_front' => false),
+		'show_in_rest' => true
 	);
-	register_post_type('consultings', $args);
+	register_post_type('consultings', $consulting_args);
 
 	register_taxonomy(
 		'consultings-category',
@@ -178,11 +188,122 @@ function post_type_frontline()
 			'query_var' => true,
 			'public' => true, // Set it to false, which will remove View link from backend and redirect user to homepage on clicking taxonomy link.
 			'show_ui' => true,
+			'show_in_rest' => true,
 			'show_admin_column' => true,
+			'rewrite'       	=> array('slug' => 'consulting', 'with_front' => false),
 			'supports' => array(
+				'title', 'thumbnail', 'editor', 'custom-fields', 'excerpt', 'tags'
+			)
+		)
+	);
+
+	$news_labels = array(
+		'name'               => _x('News', 'post type general name'),
+		'singular_name'      => _x('News', 'post type singular name'),
+		'add_new'            => _x('Add New', 'News'),
+		'add_new_item'       => __('Add New News'),
+		'edit_item'          => __('Edit News'),
+		'new_item'           => __('New News'),
+		'all_items'          => __('All News'),
+		'view_item'          => __('View News'),
+		'search_items'       => __('Search News'),
+		'not_found'          => __('No News found'),
+		'not_found_in_trash' => __('No News found in the Trash'),
+		'menu_name'          => 'News'
+	);
+	$news_args = array(
+		'labels'        	=> $news_labels,
+		'description'   	=> 'News Listing',
+		'public'        	=> true,
+		'menu_position' 	=> 20,
+		'menu_icon'     	=> 'dashicons-welcome-widgets-menus',
+		'supports'      	=> array('title', 'editor', 'thumbnail', 'excerpt'),
+		'has_archive'   	=> true,
+		'show_in_rest' 		=> true,
+		'rewrite'       	=> array('slug' => 'recent-activities', 'with_front' => false),
+		'publicly_queryable'  => true
+	);
+	register_post_type('news', $news_args);
+
+	register_taxonomy(
+		'news-category',
+		'news',
+		array(
+			'hierarchical' 		=> true,
+			'label' 			=> 'News Categories',
+			'query_var' 		=> true,
+			'public' 			=> true,
+			'show_ui' 			=> true,
+			'show_admin_column' => true,
+			'show_in_rest' 		=> true,
+			'rewrite'       	=> array('slug' => 'recent-activities', 'with_front' => false),
+			'supports' 			=> array(
 				'title', 'thumbnail', 'editor', 'custom-fields', 'excerpt', 'tags'
 			)
 		)
 	);
 }
 add_action('init', 'post_type_frontline');
+
+/* Populate ACF field Select Post Type */
+add_filter('acf/load_field/name=select_post_type', 'custom_acf_load_post_types');
+function custom_acf_load_post_types($field)
+{
+
+	$choices = get_post_types(array('show_in_nav_menus' => true), 'objects');
+	$os = array("Event Item", "Training", "Consulting");
+
+	foreach ($choices as $post_type) :
+		if (in_array($post_type->labels->singular_name, $os))
+			$field['choices'][$post_type->name] = $post_type->labels->singular_name;
+	endforeach;
+	return $field;
+}
+
+
+/* Populate ACF field Select Post Category based on sected Post Type */
+add_filter('acf/load_field/key=select_post_taxonomy', 'custom_populate_acf_select_with_taxonomies');
+function custom_populate_acf_select_with_taxonomies($field)
+{
+	$post_type = isset($_POST['acf']['select_post_type']) ? $_POST['acf']['select_post_type'] : '';
+
+	$field['choices'] = array();
+
+	if (!empty($post_type)) {
+		$taxonomies = get_object_taxonomies($post_type, 'objects');
+
+		foreach ($taxonomies as $taxonomy) {
+			$field['choices'][$taxonomy->name] = $taxonomy->label;
+		}
+	}
+
+	return $field;
+}
+
+// AJAX handler function to fetch taxonomies based on selected post type
+add_action('wp_ajax_custom_get_taxonomies', 'custom_get_taxonomies');
+function custom_get_taxonomies()
+{
+	$post_type = $_POST['post_type'];
+
+	$taxonomies = get_object_taxonomies($post_type, 'objects');
+	$taxonomy_name = '';
+	foreach ($taxonomies as $taxonomy) {
+		$taxonomy_name = $taxonomy->name;
+	}
+
+	if ($taxonomy_name != '') {
+		$options_html = '<option value="">Select Category</option>';
+		if (!empty($post_type)) {
+			$categories = get_categories(array(
+				'taxonomy' => $taxonomy_name,
+				'object_type' => $post_type
+			));
+			foreach ($categories as $category) {
+				$options_html .= '<option value="' . $category->slug . '">' . $category->name . '</option>';
+			}
+		}
+	}
+	echo $options_html;
+	die();
+}

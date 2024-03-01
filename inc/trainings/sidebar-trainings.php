@@ -82,9 +82,13 @@
         $query_results = array_merge($query_with_term->posts, $query_without_term->posts); ?>
 
         <?php foreach ($query_results as $post) :  ?>
-            <li class="cat-item"><a href="<?php echo get_the_permalink($post->ID) ?>"><?php echo get_the_title($post->ID); ?></a>
-            <?php endforeach; ?>
+            <li class="cat-item">
+                <a href="<?php echo get_the_permalink($post->ID) ?>">
+                    <?php echo get_the_title($post->ID); ?>
+                </a>
+            </li>
+        <?php endforeach; ?>
 
-            <?php wp_reset_postdata(); ?>
+        <?php wp_reset_postdata(); ?>
     </ul>
 </div>
